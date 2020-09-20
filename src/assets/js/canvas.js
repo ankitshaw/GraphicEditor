@@ -64,7 +64,14 @@ function myCanvas(w,h) {
 	  imgGroup.addEventListener('dragstart', function (e) {
         console.log('dragstart');
 
-    	});
+      });
+
+      imgGroup.addEventListener(
+        'click',function () {
+          imgGroup.moveToTop();
+          layer.draw();
+        });
+
 
 	});
 
