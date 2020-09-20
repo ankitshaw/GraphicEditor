@@ -28,52 +28,54 @@ function myCanvas(w,h) {
 	});
 
 	con.addEventListener('drop', function (e) {
-	e.preventDefault();
+		e.preventDefault();
 
-	stage.setPointersPositions(e);
+		stage.setPointersPositions(e);
 
-	Konva.Image.fromURL(itemURL, function (image) {
+		Konva.Image.fromURL(itemURL, function (image) {
 
-	  //layer.add(image);
+			  //layer.add(image);
 
-	  image.position(stage.getPointerPosition());
-	  //image.draggable(true);
-	  image.width(width*.6);
-	  image.height(height*.6);
-
-
-	  var imgGroup = new Konva.Group({
-        x: image.x(),
-        y: image.y(),
-        draggable: true,
-      });
-
-      layer.add(imgGroup);
-      imgGroup.add(image);
-      image.x(0);
-      image.y(0);
-
-	  addAnchor(imgGroup, 0, 0, 'topLeft');
-      addAnchor(imgGroup, image.width(), 0, 'topRight');
-      addAnchor(imgGroup, image.width(), image.height(), 'bottomRight');
-      addAnchor(imgGroup, 0, image.height(), 'bottomLeft');
+			  image.position(stage.getPointerPosition());
+			  //image.draggable(true);
+			  image.width(width*.6);
+			  image.height(height*.6);
 
 
-	  layer.draw();
+			  var imgGroup = new Konva.Group({
+		        x: image.x(),
+		        y: image.y(),
+		        draggable: true,
+		      });
 
-	  imgGroup.addEventListener('dragstart', function (e) {
-        console.log('dragstart');
+		      layer.add(imgGroup);
+		      imgGroup.add(image);
+		      image.x(0);
+		      image.y(0);
 
-      });
-
-      imgGroup.addEventListener(
-        'click',function () {
-          imgGroup.moveToTop();
-          layer.draw();
-        });
+			  addAnchor(imgGroup, 0, 0, 'topLeft');
+		      addAnchor(imgGroup, image.width(), 0, 'topRight');
+		      addAnchor(imgGroup, image.width(), image.height(), 'bottomRight');
+		      addAnchor(imgGroup, 0, image.height(), 'bottomLeft');
 
 
-	});
+			  layer.draw();
+
+			  imgGroup.addEventListener('dragstart', function (e) {
+		        console.log('dragstart');
+
+		      });
+
+		      imgGroup.addEventListener(
+		        'click',function () {
+		          imgGroup.moveToTop();
+		          layer.draw();
+		      });
+
+
+		});
+
+		console.log(this.stage.toJSON());
 
 	});
 
@@ -90,7 +92,7 @@ function myCanvas(w,h) {
           stroke: '#666',
           fill: '#ddd',
           strokeWidth: 2,
-          radius: 8,
+          radius: 4,
           name: name,
           draggable: true,
           dragOnTop: false,

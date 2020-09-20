@@ -37,7 +37,6 @@ export class AppComponent implements OnInit{
 		
 		this.peer.on('connection', function(conn) {
 		  conn.on('data', function(data){
-		    // Will print 'hi!'
 		    console.log(data);
 		  });
 		});
@@ -59,7 +58,7 @@ export class AppComponent implements OnInit{
 	// on open will be launch when you successfully connect to PeerServer
 	conn.on('open', function(){
 	  // here you have conn.id
-	  conn.send(this.msg2.toString());
+	  conn.send("this.msg2.toString()");
 	});
    }
 
