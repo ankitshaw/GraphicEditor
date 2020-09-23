@@ -26,6 +26,8 @@
 
 - Drag and drop images on the canvas from left panel
 
+- Click on an image to bring it in front
+
 - Ability to connect two client using peer id. Can send the canvas update details from A to B Client. Rendering the details on the B client canvas not implemented.
 
 
