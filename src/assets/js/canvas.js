@@ -1,15 +1,14 @@
-function myCanvas(w,h) {
+function myCanvas(w,h, stg, lay,p,a) {
 	var width = w*0.5;
 	var height = h*0.5;
 
 
-	var stage = new Konva.Stage({
-		container: 'container',
-		width: width,
-		height: height,
-		});
-
-	var layer = new Konva.Layer();
+	var stage = stg;
+	var layer = lay;
+  
+  //var conn = c;
+  var peer = p;
+  var anotherid =a; 
 
 	stage.add(layer);
 
@@ -53,16 +52,17 @@ function myCanvas(w,h) {
 		      image.x(0);
 		      image.y(0);
 
-			  addAnchor(imgGroup, 0, 0, 'topLeft');
+			   addAnchor(imgGroup, 0, 0, 'topLeft');
 		      addAnchor(imgGroup, image.width(), 0, 'topRight');
 		      addAnchor(imgGroup, image.width(), image.height(), 'bottomRight');
 		      addAnchor(imgGroup, 0, image.height(), 'bottomLeft');
 
 
-			  layer.draw();
+			   layer.draw();
 
-			  imgGroup.addEventListener('dragstart', function (e) {
-		        console.log('dragstart');
+			   imgGroup.addEventListener('dragstart', function (e) {
+          //   stage.setPointersPositions(e)
+		        // console.log(stage.getPointerPosition());
 
 		      });
 
@@ -73,9 +73,12 @@ function myCanvas(w,h) {
 		      });
 
 
+          var conn = peer.connect(anotherid);
+          conn.on('open', function(){
+          // here you have conn.id
+          conn.send("{\"image\":\""+itemURL+"\",\"x\":"+imgGroup.attrs.x+",\"y\":"+imgGroup.attrs.y+"}");
+          });
 		});
-
-		console.log(this.stage.toJSON());
 
 	});
 
@@ -168,4 +171,49 @@ function myCanvas(w,h) {
           image.width(width);
           image.height(height);
         }
+    }
+
+
+    function drawImg(itemURL,width,height,xx,yy, layer){
+      Konva.Image.fromURL(itemURL, function (image) {
+
+        //layer.add(image);
+
+        //image.draggable(true);
+        image.width(width*.6);
+        image.height(height*.6);
+
+
+        var imgGroup = new Konva.Group({
+            x: xx,
+            y: yy,
+            draggable: true,
+          });
+
+          layer.add(imgGroup);
+          imgGroup.add(image);
+          image.x(0);
+          image.y(0);
+
+        addAnchor(imgGroup, 0, 0, 'topLeft');
+          addAnchor(imgGroup, image.width(), 0, 'topRight');
+          addAnchor(imgGroup, image.width(), image.height(), 'bottomRight');
+          addAnchor(imgGroup, 0, image.height(), 'bottomLeft');
+
+
+        layer.draw();
+
+        imgGroup.addEventListener('dragstart', function (e) {
+            console.log('dragstart');
+
+          });
+
+          imgGroup.addEventListener(
+            'click',function () {
+              imgGroup.moveToTop();
+              layer.draw();
+          });
+
+
+    });
     }
