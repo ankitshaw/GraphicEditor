@@ -50,17 +50,12 @@ export class AppComponent implements OnInit{
 		    } else if (data.includes("image")){
 		    	document.getElementById("data").innerHTML = data;
 		    	var data = JSON.parse(data);
-		    	drawImg(data.image,this.w*0.5,this.h*0.5,data.x,data.y,this.layer);
+		    	// drawImg(data.image,this.w*0.5,this.h*0.5,data.x,data.y,this.layer);
 		    }
 		     
 		  });
 		});
 
-		var element = document.getElementById('data');
-		element.addEventListener('DOMSubtreeModified', myFunction);
-		function myFunction(e) {
-		    drawImg(data.image,this.w*0.5,this.h*0.5,data.x,data.y,this.layer);
-		}
 
 		this.conn = this.peer.connect(this.anotherid);
 		this.stage = new Konva.Stage({
